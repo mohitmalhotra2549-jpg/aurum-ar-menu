@@ -11,7 +11,6 @@ export interface Dish {
   vegetarian: boolean;
   prepTime: string;
   ingredients: string[];
-  image: string;
   /** Paths are fixed by convention: /models/<slug>.glb and /models/<slug>.usdz */
   modelPath: string;
   iosModelPath: string;

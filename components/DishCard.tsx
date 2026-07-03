@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { Clock3, ScanLine, UtensilsCrossed } from "lucide-react";
+import { Clock3, ScanLine } from "lucide-react";
 import { DishWithAvailability } from "@/types/dish";
 import { formatPrice } from "@/lib/utils";
 import { ReticleFrame } from "./ReticleFrame";
 import { VegBadge } from "./VegBadge";
+import { ModelPoster } from "./ModelPoster";
 
 interface DishCardProps {
   dish: DishWithAvailability;
@@ -16,8 +15,6 @@ interface DishCardProps {
 }
 
 export function DishCard({ dish, index, onOpen }: DishCardProps) {
-  const [imageError, setImageError] = useState(false);
-
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -31,21 +28,9 @@ export function DishCard({ dish, index, onOpen }: DishCardProps) {
         onClick={() => onOpen(dish)}
         className="relative aspect-[4/3] w-full overflow-hidden bg-parchment dark:bg-umber"
       >
-        {!imageError ? (
-          <Image
-            src={dish.image}
-            alt={dish.name}
-            fill
-            sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-espresso/30 dark:text-ivory/25">
-            <UtensilsCrossed className="h-8 w-8" />
-            <span className="font-mono text-[10px] uppercase tracking-widest2">Image coming soon</span>
-          </div>
-        )}
+        {/* Static 3D model poster — pointer-events disabled inside ModelPoster */}
+        <ModelPoster dish={dish} />
+
         <div className="absolute inset-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <ReticleFrame active={false} />
         </div>
