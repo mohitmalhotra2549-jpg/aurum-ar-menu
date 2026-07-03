@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Required for Replit's proxied preview
+  allowedDevOrigins: ["*"],
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
