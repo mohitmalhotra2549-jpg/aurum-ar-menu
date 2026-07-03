@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
+
+// Allow Replit's proxied preview origins dynamically so /_next/* assets are served.
+const devOrigins = [];
+if (process.env.REPLIT_DEV_DOMAIN) {
+  devOrigins.push(process.env.REPLIT_DEV_DOMAIN);
+}
+
 const nextConfig = {
   reactStrictMode: true,
-  // Required for Replit's proxied preview
-  allowedDevOrigins: ["*"],
+  allowedDevOrigins: devOrigins,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
